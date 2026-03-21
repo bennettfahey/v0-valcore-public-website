@@ -1,8 +1,36 @@
 "use client"
 
-import Image from "next/image"
+import { useState } from "react"
 import { motion } from "framer-motion"
-import { partners, getPartnerLogoUrl } from "@/lib/partners-data"
+import { partners, getPartnerLogoUrl, type Partner } from "@/lib/partners-data"
+
+function PartnerLogo({ partner }: { partner: Partner }) {
+  const [loaded, setLoaded] = useState(false)
+  const [failed, setFailed] = useState(false)
+
+  return (
+    <div className="relative h-16 w-full mb-4 flex items-center justify-center">
+      {!failed && (
+        /* eslint-disable-next-line @next/next/no-img-element */
+        <img
+          src={getPartnerLogoUrl(partner.domain)}
+          alt={partner.name}
+          className={`max-h-16 max-w-[140px] object-contain grayscale-[60%] group-hover:grayscale-0 transition-[filter,opacity] duration-300 ${loaded ? "opacity-100" : "opacity-0 absolute"}`}
+          onLoad={() => setLoaded(true)}
+          onError={() => setFailed(true)}
+          loading="lazy"
+        />
+      )}
+      {(!loaded || failed) && (
+        <div className="h-16 w-full flex items-center justify-center rounded-xl bg-primary/[0.06]">
+          <span className="text-2xl font-bold text-primary">
+            {partner.name.charAt(0)}
+          </span>
+        </div>
+      )}
+    </div>
+  )
+}
 
 export function PartnersPageContent() {
   return (
@@ -53,32 +81,7 @@ export function PartnersPageContent() {
                 rel="noopener noreferrer"
                 className="group flex flex-col items-center justify-center rounded-2xl bg-white border border-black/[0.06] p-8 shadow-sm transition-[border-color,box-shadow,transform] duration-300 hover:border-primary/20 hover:shadow-md hover:scale-[1.02] cursor-pointer"
               >
-                <div className="relative h-16 w-full mb-4 flex items-center justify-center">
-                  <Image
-                    src={getPartnerLogoUrl(partner.domain)}
-                    alt={partner.name}
-                    width={120}
-                    height={64}
-                    className="max-h-16 max-w-[140px] object-contain grayscale-[60%] group-hover:grayscale-0 transition-[filter] duration-300"
-                    style={{ width: "auto", height: "auto" }}
-                    loading="lazy"
-                    unoptimized
-                    onError={(e) => {
-                      const target = e.currentTarget
-                      target.style.display = "none"
-                      const fallback = target.nextElementSibling
-                      if (fallback) (fallback as HTMLElement).style.display = "flex"
-                    }}
-                  />
-                  <div
-                    className="hidden h-16 w-full items-center justify-center rounded-xl bg-primary/[0.06]"
-                    style={{ display: "none" }}
-                  >
-                    <span className="text-2xl font-bold text-primary">
-                      {partner.name.charAt(0)}
-                    </span>
-                  </div>
-                </div>
+                <PartnerLogo partner={partner} />
                 <span className="text-sm font-semibold text-foreground/80 text-center">
                   {partner.name}
                 </span>
