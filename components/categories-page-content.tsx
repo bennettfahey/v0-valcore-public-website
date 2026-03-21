@@ -51,7 +51,7 @@ export function CategoriesPageContent() {
               <div key={category.slug} className="h-full">
                 <Link
                   href={`/categories/${category.slug}`}
-                  className="group flex flex-col rounded-2xl bg-white/70 backdrop-blur-sm border border-black/[0.06] p-6 h-full shadow-sm transition-all duration-300 hover:border-primary/20 hover:shadow-md cursor-pointer"
+                  className="group flex flex-col rounded-2xl bg-white border border-black/[0.06] p-6 h-full shadow-sm transition-[border-color,box-shadow] duration-300 hover:border-primary/20 hover:shadow-md cursor-pointer"
                 >
                   <h2 className="text-xl font-semibold text-primary group-hover:text-primary/80 transition-colors">
                     {category.name}
@@ -77,7 +77,8 @@ export function CategoriesPageContent() {
                           alt={vendor.name}
                           width={100}
                           height={48}
-                          className="object-contain grayscale-[60%] mix-blend-multiply group-hover:grayscale-0 transition-all duration-300"
+                          className="object-contain grayscale-[60%] group-hover:grayscale-0 transition-[filter] duration-300"
+                          loading="lazy"
                           style={{ width: "auto", height: "auto", maxHeight: "44px" }}
                           unoptimized
                         />
