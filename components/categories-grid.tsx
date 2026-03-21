@@ -63,7 +63,7 @@ export function CategoriesGrid() {
               >
                 <Link
                   href={`/categories/${category.slug}`}
-                  className="group flex flex-col rounded-2xl bg-card border border-border/60 p-5 h-full transition-all duration-300 hover:border-primary/20 hover:shadow-md cursor-pointer"
+                  className="group flex flex-col rounded-2xl bg-card border border-border p-5 h-full shadow-sm transition-all duration-300 hover:border-primary/20 hover:shadow-md cursor-pointer"
                 >
                   <div className="flex items-start gap-3">
                     <div className="h-9 w-9 rounded-xl bg-primary/[0.06] group-hover:bg-primary/[0.1] flex items-center justify-center shrink-0 transition-colors duration-300">
