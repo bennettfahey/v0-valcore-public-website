@@ -2,10 +2,55 @@
 
 import Link from "next/link"
 import Image from "next/image"
-import { ArrowLeft, ArrowRight, Check } from "lucide-react"
+import {
+  ArrowLeft, ArrowRight,
+  FileText, Sparkles, LayoutDashboard, Printer,
+  Wrench, Zap, Droplets, Hammer,
+  Package, PackageOpen, Box, Truck,
+  Shield, HardHat, Shirt, HeartPulse,
+  Laptop, Cloud, Wifi, Settings,
+  Cog, Battery, Car,
+  Flame, Building, Paintbrush,
+  Check,
+} from "lucide-react"
 import { motion } from "framer-motion"
 import type { Category } from "@/lib/categories-data"
 import { getLogoUrl } from "@/lib/categories-data"
+
+const bulletIcons: Record<string, React.ElementType> = {
+  "Office supplies & paper products": FileText,
+  "Janitorial & breakroom": Sparkles,
+  "Furniture & ergonomics": LayoutDashboard,
+  "Ink, toner & printing": Printer,
+  "Industrial tools & hardware": Wrench,
+  "Electrical & lighting": Zap,
+  "Plumbing & HVAC": Droplets,
+  "Fasteners & raw materials": Hammer,
+  "Custom & stock boxes": Package,
+  "Stretch wrap & strapping": PackageOpen,
+  "Cushioning & void fill": Box,
+  "Small parcel shipping (DHL/UPS)": Truck,
+  "Gloves, eyewear, respirators": Shield,
+  "Hard hats & head protection": HardHat,
+  "Hi-vis & protective clothing": Shirt,
+  "First aid & emergency supplies": HeartPulse,
+  "Laptops, desktops & servers": Laptop,
+  "Software & cloud services": Cloud,
+  "Networking & security": Wifi,
+  "Managed IT services": Settings,
+  "Filters, brake pads & rotors": Cog,
+  "Belts, hoses & engine parts": Wrench,
+  "Batteries & electrical": Battery,
+  "Vehicle rental programs": Car,
+  "Uniform rental & purchase": Shirt,
+  "Flame-resistant apparel": Flame,
+  "Mat & facility services": Building,
+  "First aid compliance": HeartPulse,
+  "Industrial gases & welding": Flame,
+  "Power transmission components": Cog,
+  "Paint & coatings": Paintbrush,
+  "Equipment rental": Truck,
+}
 
 export function CategoryDetailContent({ category }: { category: Category }) {
   return (
@@ -92,18 +137,21 @@ export function CategoryDetailContent({ category }: { category: Category }) {
             Pre-negotiated contracts covering these areas and more.
           </p>
           <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-            {category.bullets.map((bullet, index) => (
-              <div key={index} className="flex items-start gap-3">
-                <div className="h-10 w-10 rounded-xl bg-primary flex items-center justify-center shrink-0">
-                  <Check className="h-5 w-5 text-primary-foreground" strokeWidth={2.5} />
+            {category.bullets.map((bullet, index) => {
+              const Icon = bulletIcons[bullet] || Check
+              return (
+                <div key={index} className="flex items-start gap-3">
+                  <div className="h-10 w-10 rounded-xl bg-primary flex items-center justify-center shrink-0">
+                    <Icon className="h-5 w-5 text-primary-foreground" strokeWidth={1.5} />
+                  </div>
+                  <div className="border-l-2 border-primary/20 pl-3 py-1">
+                    <span className="text-sm font-medium text-foreground">
+                      {bullet}
+                    </span>
+                  </div>
                 </div>
-                <div className="border-l-2 border-primary/20 pl-3 py-1">
-                  <span className="text-sm font-medium text-foreground">
-                    {bullet}
-                  </span>
-                </div>
-              </div>
-            ))}
+              )
+            })}
           </div>
         </div>
       </section>

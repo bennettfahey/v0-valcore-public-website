@@ -1,7 +1,4 @@
-"use client"
-
 import { Upload, FileText, CheckSquare, Zap } from "lucide-react"
-import { motion } from "framer-motion"
 
 const steps = [
   {
@@ -38,36 +35,22 @@ export function HowItWorks() {
   return (
     <section id="how-it-works" className="py-24 lg:py-32 bg-secondary">
       <div className="mx-auto max-w-7xl px-6 lg:px-8">
-        <motion.div
-          initial={{ opacity: 0, y: 16 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: "-100px" }}
-          transition={{ duration: 0.5 }}
-          className="text-center mb-16"
-        >
+        <div className="text-center mb-16">
           <p className="text-xs font-semibold uppercase tracking-[0.2em] text-primary mb-4">
             How it works
           </p>
           <h2 className="text-3xl font-semibold text-foreground sm:text-4xl">
             Get started in four steps
           </h2>
-        </motion.div>
+        </div>
 
         <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
-          {steps.map((step, index) => {
+          {steps.map((step) => {
             const Icon = step.icon
             return (
-              <motion.div
+              <div
                 key={step.number}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true, margin: "-60px" }}
-                transition={{
-                  duration: 0.5,
-                  delay: index * 0.08,
-                  ease: [0.25, 0.4, 0.25, 1],
-                }}
-                className="relative rounded-2xl bg-white/70 backdrop-blur-sm border border-black/[0.06] p-6 transition-shadow duration-300 hover:shadow-md"
+                className="relative rounded-2xl bg-white border border-black/[0.06] p-6 shadow-sm transition-[box-shadow] duration-300 hover:shadow-md"
               >
                 <div className="flex items-center gap-4 mb-4">
                   <span className="text-3xl font-semibold text-border">
@@ -83,7 +66,7 @@ export function HowItWorks() {
                 <p className="text-sm leading-relaxed text-muted-foreground">
                   {step.description}
                 </p>
-              </motion.div>
+              </div>
             )
           })}
         </div>
