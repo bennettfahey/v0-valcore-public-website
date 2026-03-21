@@ -11,7 +11,7 @@ const stats = [
 
 export function StatsBar() {
   return (
-    <section className="border-y border-border">
+    <section className="bg-secondary border-y border-border">
       <div className="mx-auto max-w-7xl px-6 lg:px-8">
         <div className="flex flex-col gap-10 py-16 lg:py-20 lg:flex-row lg:items-center lg:justify-between">
           {/* Left Content */}

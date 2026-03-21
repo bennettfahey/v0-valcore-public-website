@@ -20,7 +20,7 @@ export function HeroSection() {
   return (
     <section className="relative pt-36 pb-24 lg:pt-48 lg:pb-32 overflow-hidden">
       {/* Subtle gradient backdrop */}
-      <div className="absolute inset-0 bg-gradient-to-b from-background via-background to-secondary/30 pointer-events-none" />
+      <div className="absolute inset-0 bg-gradient-to-b from-background via-background/80 to-secondary/50 pointer-events-none" />
 
       <div className="relative mx-auto max-w-7xl px-6 lg:px-8">
         <div className="max-w-3xl mx-auto text-center">
