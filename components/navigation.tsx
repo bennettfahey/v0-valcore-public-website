@@ -104,6 +104,12 @@ export function Navigation() {
           >
             How It Works
           </a>
+          <Link
+            href="/partners"
+            className="text-sm font-medium text-foreground/70 transition-colors duration-200 hover:text-foreground cursor-pointer"
+          >
+            Partners
+          </Link>
           <a
             href="/#faq"
             className="text-sm font-medium text-foreground/70 transition-colors duration-200 hover:text-foreground cursor-pointer"
@@ -211,6 +217,13 @@ export function Navigation() {
               >
                 How It Works
               </a>
+              <Link
+                href="/partners"
+                className="block py-2.5 text-[15px] font-medium text-foreground/80 hover:text-foreground cursor-pointer"
+                onClick={() => setMobileMenuOpen(false)}
+              >
+                Partners
+              </Link>
               <a
                 href="/#faq"
                 className="block py-2.5 text-[15px] font-medium text-foreground/80 hover:text-foreground cursor-pointer"
