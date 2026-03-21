@@ -6,19 +6,6 @@ import { ArrowRight } from "lucide-react"
 import { motion } from "framer-motion"
 import { categories, getLogoUrl } from "@/lib/categories-data"
 
-const fadeUp = {
-  hidden: { opacity: 0, y: 20 },
-  visible: (i: number) => ({
-    opacity: 1,
-    y: 0,
-    transition: {
-      delay: i * 0.08,
-      duration: 0.5,
-      ease: [0.25, 0.4, 0.25, 1],
-    },
-  }),
-}
-
 export function CategoriesPageContent() {
   return (
     <>
@@ -60,16 +47,8 @@ export function CategoriesPageContent() {
       <section className="py-16 lg:py-24">
         <div className="mx-auto max-w-7xl px-6 lg:px-8">
           <div className="grid gap-6 md:grid-cols-2">
-            {categories.map((category, index) => (
-              <motion.div
-                key={category.slug}
-                custom={index}
-                initial="hidden"
-                whileInView="visible"
-                viewport={{ once: true, margin: "-60px" }}
-                variants={fadeUp}
-                className="h-full"
-              >
+            {categories.map((category) => (
+              <div key={category.slug} className="h-full">
                 <Link
                   href={`/categories/${category.slug}`}
                   className="group flex flex-col rounded-2xl bg-white/70 backdrop-blur-sm border border-black/[0.06] p-6 h-full shadow-sm transition-all duration-300 hover:border-primary/20 hover:shadow-md cursor-pointer"
@@ -87,7 +66,7 @@ export function CategoriesPageContent() {
                     ))}
                   </ul>
 
-                  <div className="mt-6 flex flex-wrap items-center gap-4">
+                  <div className="mt-6 flex flex-wrap items-center gap-5">
                     {category.vendors.map((vendor) => (
                       <div
                         key={vendor.domain}
@@ -96,10 +75,10 @@ export function CategoriesPageContent() {
                         <Image
                           src={getLogoUrl(vendor.domain)}
                           alt={vendor.name}
-                          width={60}
-                          height={32}
+                          width={100}
+                          height={48}
                           className="object-contain grayscale-[60%] mix-blend-multiply group-hover:grayscale-0 transition-all duration-300"
-                          style={{ width: "auto", height: "auto", maxHeight: "32px" }}
+                          style={{ width: "auto", height: "auto", maxHeight: "44px" }}
                           unoptimized
                         />
                       </div>
@@ -110,7 +89,7 @@ export function CategoriesPageContent() {
                     Learn more <ArrowRight className="h-3 w-3" />
                   </div>
                 </Link>
-              </motion.div>
+              </div>
             ))}
           </div>
         </div>

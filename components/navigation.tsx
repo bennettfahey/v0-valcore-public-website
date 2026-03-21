@@ -72,7 +72,7 @@ export function Navigation() {
                   animate={{ opacity: 1, y: 0, scale: 1 }}
                   exit={{ opacity: 0, y: 8, scale: 0.96 }}
                   transition={{ duration: 0.15, ease: "easeOut" }}
-                  className="absolute top-full left-1/2 -translate-x-1/2 mt-3 w-72 rounded-xl bg-white/80 backdrop-blur-xl border border-black/[0.06] shadow-lg py-2"
+                  className="absolute top-full left-1/2 -translate-x-1/2 mt-3 w-72 rounded-xl bg-white border border-black/[0.06] shadow-lg py-2"
                 >
                   <Link
                     href="/categories"
