@@ -59,10 +59,11 @@ export function CategoriesGrid() {
                   delay: Math.min(index * 0.05, 0.35),
                   ease: [0.25, 0.4, 0.25, 1],
                 }}
+                className="h-full"
               >
                 <Link
                   href={`/categories/${category.slug}`}
-                  className="group block rounded-2xl bg-white/70 backdrop-blur-sm border border-black/[0.06] p-5 transition-all duration-300 hover:border-primary/20 hover:shadow-md cursor-pointer"
+                  className="group flex flex-col rounded-2xl bg-card border border-border/60 p-5 h-full transition-all duration-300 hover:border-primary/20 hover:shadow-md cursor-pointer"
                 >
                   <div className="flex items-start gap-3">
                     <div className="h-9 w-9 rounded-xl bg-primary/[0.06] group-hover:bg-primary/[0.1] flex items-center justify-center shrink-0 transition-colors duration-300">
@@ -77,7 +78,7 @@ export function CategoriesGrid() {
                       </p>
                     </div>
                   </div>
-                  <div className="mt-3 flex items-center gap-1 text-xs font-medium text-primary opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                  <div className="mt-auto pt-3 flex items-center gap-1 text-xs font-medium text-primary opacity-0 group-hover:opacity-100 transition-opacity duration-300">
                     Learn more <ArrowRight className="h-3 w-3" />
                   </div>
                 </Link>

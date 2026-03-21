@@ -20,41 +20,24 @@ export function HeroSection() {
   return (
     <section className="relative pt-36 pb-24 lg:pt-48 lg:pb-32 overflow-hidden">
       {/* Subtle gradient backdrop */}
-      <div className="absolute inset-0 bg-gradient-to-b from-background via-background to-secondary/40 pointer-events-none" />
+      <div className="absolute inset-0 bg-gradient-to-b from-background via-background to-secondary/30 pointer-events-none" />
 
       <div className="relative mx-auto max-w-7xl px-6 lg:px-8">
         <div className="max-w-3xl mx-auto text-center">
-          {/* Badge */}
-          <motion.div
+          {/* Headline */}
+          <motion.h1
             custom={0}
             initial="hidden"
             animate="visible"
             variants={fadeUp}
+            className="text-4xl font-semibold tracking-tight text-foreground sm:text-5xl lg:text-[3.5rem] lg:leading-[1.1] text-balance"
           >
-            <span className="inline-flex items-center gap-2 rounded-full bg-white/70 backdrop-blur border border-black/[0.06] px-4 py-1.5 text-xs font-medium text-foreground/70">
-              <span className="relative flex h-1.5 w-1.5">
-                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-primary opacity-60" />
-                <span className="relative inline-flex rounded-full h-1.5 w-1.5 bg-primary" />
-              </span>
-              Free for all members
-            </span>
-          </motion.div>
-
-          {/* Headline */}
-          <motion.h1
-            custom={1}
-            initial="hidden"
-            animate="visible"
-            variants={fadeUp}
-            className="mt-8 text-4xl font-semibold tracking-tight text-foreground sm:text-5xl lg:text-[3.5rem] lg:leading-[1.1] text-balance"
-          >
-            Strategic purchasing power{" "}
-            <span className="text-primary">for your business.</span>
+            Strategic purchasing power for your business.
           </motion.h1>
 
           {/* Subtitle */}
           <motion.p
-            custom={2}
+            custom={1}
             initial="hidden"
             animate="visible"
             variants={fadeUp}
@@ -67,7 +50,7 @@ export function HeroSection() {
 
           {/* CTAs */}
           <motion.div
-            custom={3}
+            custom={2}
             initial="hidden"
             animate="visible"
             variants={fadeUp}
