@@ -1,7 +1,7 @@
 "use client"
 
-import { useEffect, useRef, useState } from "react"
 import { Upload, FileText, CheckSquare, Zap } from "lucide-react"
+import { motion } from "framer-motion"
 
 const steps = [
   {
@@ -35,63 +35,55 @@ const steps = [
 ]
 
 export function HowItWorks() {
-  const [isVisible, setIsVisible] = useState(false)
-  const sectionRef = useRef<HTMLElement>(null)
-
-  useEffect(() => {
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) {
-          setIsVisible(true)
-        }
-      },
-      { threshold: 0.1 }
-    )
-
-    if (sectionRef.current) {
-      observer.observe(sectionRef.current)
-    }
-
-    return () => observer.disconnect()
-  }, [])
-
   return (
-    <section ref={sectionRef} id="how-it-works" className="py-20 lg:py-28">
+    <section id="how-it-works" className="py-24 lg:py-32 bg-secondary/50">
       <div className="mx-auto max-w-7xl px-6 lg:px-8">
-        <div className="text-center mb-16">
-          <h2 className="text-3xl font-semibold text-primary sm:text-4xl">
-            How Valcore works
+        <motion.div
+          initial={{ opacity: 0, y: 16 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: "-100px" }}
+          transition={{ duration: 0.5 }}
+          className="text-center mb-16"
+        >
+          <p className="text-xs font-semibold uppercase tracking-[0.2em] text-primary mb-4">
+            How it works
+          </p>
+          <h2 className="text-3xl font-semibold text-foreground sm:text-4xl">
+            Get started in four steps
           </h2>
-        </div>
+        </motion.div>
 
-        <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-4">
+        <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
           {steps.map((step, index) => {
             const Icon = step.icon
             return (
-              <div
+              <motion.div
                 key={step.number}
-                className={`relative rounded-2xl bg-card p-6 shadow-sm border border-border transition-all duration-700 ${
-                  isVisible
-                    ? "opacity-100 translate-y-0"
-                    : "opacity-0 translate-y-8"
-                }`}
-                style={{ transitionDelay: `${index * 100}ms` }}
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, margin: "-60px" }}
+                transition={{
+                  duration: 0.5,
+                  delay: index * 0.08,
+                  ease: [0.25, 0.4, 0.25, 1],
+                }}
+                className="relative rounded-2xl bg-white/70 backdrop-blur-sm border border-black/[0.06] p-6 transition-shadow duration-300 hover:shadow-md"
               >
                 <div className="flex items-center gap-4 mb-4">
-                  <span className="text-3xl font-semibold text-primary/30">
+                  <span className="text-3xl font-semibold text-border">
                     {step.number}
                   </span>
-                  <div className="h-10 w-10 rounded-xl bg-primary/5 flex items-center justify-center">
-                    <Icon className="h-5 w-5 text-primary" />
+                  <div className="h-10 w-10 rounded-xl bg-primary/[0.06] flex items-center justify-center">
+                    <Icon className="h-5 w-5 text-primary" strokeWidth={1.5} />
                   </div>
                 </div>
-                <h3 className="text-lg font-semibold text-primary mb-2">
+                <h3 className="text-base font-semibold text-foreground mb-2">
                   {step.title}
                 </h3>
-                <p className="text-sm leading-relaxed text-foreground/70">
+                <p className="text-sm leading-relaxed text-muted-foreground">
                   {step.description}
                 </p>
-              </div>
+              </motion.div>
             )
           })}
         </div>

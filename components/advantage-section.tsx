@@ -1,7 +1,7 @@
 "use client"
 
-import { useEffect, useRef, useState } from "react"
 import { Globe, BadgeCheck, Users, Sparkles } from "lucide-react"
+import { motion } from "framer-motion"
 
 const advantages = [
   {
@@ -31,58 +31,50 @@ const advantages = [
 ]
 
 export function AdvantageSection() {
-  const [isVisible, setIsVisible] = useState(false)
-  const sectionRef = useRef<HTMLElement>(null)
-
-  useEffect(() => {
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) {
-          setIsVisible(true)
-        }
-      },
-      { threshold: 0.1 }
-    )
-
-    if (sectionRef.current) {
-      observer.observe(sectionRef.current)
-    }
-
-    return () => observer.disconnect()
-  }, [])
-
   return (
-    <section ref={sectionRef} className="py-20 lg:py-28">
+    <section className="py-24 lg:py-32 bg-secondary/50">
       <div className="mx-auto max-w-7xl px-6 lg:px-8">
-        <div className="text-center mb-16">
-          <h2 className="text-3xl font-semibold text-primary sm:text-4xl">
+        <motion.div
+          initial={{ opacity: 0, y: 16 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: "-100px" }}
+          transition={{ duration: 0.5 }}
+          className="text-center mb-16"
+        >
+          <p className="text-xs font-semibold uppercase tracking-[0.2em] text-primary mb-4">
+            Why Valcore
+          </p>
+          <h2 className="text-3xl font-semibold text-foreground sm:text-4xl">
             The Valcore advantage
           </h2>
-        </div>
+        </motion.div>
 
         <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-4">
           {advantages.map((advantage, index) => {
             const Icon = advantage.icon
             return (
-              <div
+              <motion.div
                 key={advantage.title}
-                className={`text-center transition-all duration-700 ${
-                  isVisible
-                    ? "opacity-100 translate-y-0"
-                    : "opacity-0 translate-y-8"
-                }`}
-                style={{ transitionDelay: `${index * 100}ms` }}
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, margin: "-80px" }}
+                transition={{
+                  duration: 0.5,
+                  delay: index * 0.1,
+                  ease: [0.25, 0.4, 0.25, 1],
+                }}
+                className="text-center"
               >
-                <div className="mx-auto h-14 w-14 rounded-full bg-primary flex items-center justify-center mb-5">
-                  <Icon className="h-6 w-6 text-white" />
+                <div className="mx-auto h-12 w-12 rounded-2xl bg-primary/[0.06] flex items-center justify-center mb-5">
+                  <Icon className="h-5 w-5 text-primary" strokeWidth={1.5} />
                 </div>
-                <h3 className="text-lg font-semibold text-primary mb-3">
+                <h3 className="text-base font-semibold text-foreground mb-3">
                   {advantage.title}
                 </h3>
-                <p className="text-sm leading-relaxed text-foreground/70">
+                <p className="text-sm leading-relaxed text-muted-foreground">
                   {advantage.description}
                 </p>
-              </div>
+              </motion.div>
             )
           })}
         </div>

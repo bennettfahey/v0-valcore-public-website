@@ -12,8 +12,9 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select"
-import { Check } from "lucide-react"
+import { Check, ArrowRight } from "lucide-react"
 import { categories } from "@/lib/categories-data"
+import { motion } from "framer-motion"
 
 export function ContactSection() {
   const [isSubmitting, setIsSubmitting] = useState(false)
@@ -31,17 +32,14 @@ export function ContactSection() {
         const response = await fetch("/api/subsidiaries")
         if (response.ok) {
           const data = await response.json()
-          // Handle both array of strings and array of objects with name property
-          const partnerNames: string[] = data.map((item: string | { name: string }) => 
+          const partnerNames: string[] = data.map((item: string | { name: string }) =>
             typeof item === "string" ? item : item.name
           )
-          // Sort alphabetically and add "Other" at the end
           const sortedPartners = partnerNames.sort((a, b) => a.localeCompare(b))
           setPartnerAffiliations([...sortedPartners, "Other"])
         }
       } catch (err) {
         console.error("Failed to fetch partner affiliations:", err)
-        // Fallback to empty with just "Other"
         setPartnerAffiliations(["Other"])
       } finally {
         setLoadingPartners(false)
@@ -88,13 +86,11 @@ export function ContactSection() {
         throw new Error(result.error || "Failed to submit form")
       }
 
-      // Redirect to invite URL if provided
       if (result.inviteUrl) {
         window.location.href = result.inviteUrl
         return
       }
 
-      // Fallback success state
       setSubmitted(true)
     } catch (err) {
       console.error("Form submission error:", err)
@@ -105,44 +101,61 @@ export function ContactSection() {
   }
 
   return (
-    <section id="contact" className="py-20 lg:py-28 bg-primary">
+    <section id="contact" className="py-24 lg:py-32 bg-foreground">
       <div className="mx-auto max-w-3xl px-6 lg:px-8">
-        <div className="text-center mb-12">
-          <h2 className="text-3xl font-semibold text-white sm:text-4xl">
+        <motion.div
+          initial={{ opacity: 0, y: 16 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: "-100px" }}
+          transition={{ duration: 0.5 }}
+          className="text-center mb-12"
+        >
+          <h2 className="text-3xl font-semibold text-background sm:text-4xl">
             Ready to see what you could save?
           </h2>
-          <p className="mt-4 text-white/70 max-w-xl mx-auto">
+          <p className="mt-4 text-background/50 max-w-xl mx-auto">
             Get a free, no-obligation savings analysis. Share your spend data and
-            we'll show you exactly where you can reduce costs.
+            we&apos;ll show you exactly where you can reduce costs.
           </p>
-        </div>
+        </motion.div>
 
         {submitted ? (
-          <div className="rounded-2xl bg-white p-8 text-center">
-            <div className="mx-auto h-16 w-16 rounded-full bg-primary/10 flex items-center justify-center mb-4">
+          <motion.div
+            initial={{ opacity: 0, scale: 0.95 }}
+            animate={{ opacity: 1, scale: 1 }}
+            className="rounded-2xl bg-card p-8 text-center"
+          >
+            <div className="mx-auto h-16 w-16 rounded-full bg-primary/[0.06] flex items-center justify-center mb-4">
               <Check className="h-8 w-8 text-primary" />
             </div>
-            <h3 className="text-xl font-semibold text-primary mb-2">
+            <h3 className="text-xl font-semibold text-foreground mb-2">
               Thank you!
             </h3>
-            <p className="text-foreground/70">
+            <p className="text-muted-foreground">
               Check your email for next steps.
             </p>
-          </div>
+          </motion.div>
         ) : (
-          <form onSubmit={handleSubmit} className="rounded-2xl bg-white p-6 lg:p-8 shadow-sm">
+          <motion.form
+            initial={{ opacity: 0, y: 24 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: "-60px" }}
+            transition={{ duration: 0.6, delay: 0.1 }}
+            onSubmit={handleSubmit}
+            className="rounded-2xl bg-card p-6 lg:p-8"
+          >
             {error && (
-              <div className="mb-6 p-4 rounded-lg bg-red-50 border border-red-200 text-red-700 text-sm">
+              <div className="mb-6 p-4 rounded-xl bg-red-50 border border-red-200 text-red-700 text-sm">
                 {error}
               </div>
             )}
-            <div className="grid gap-6">
+            <div className="grid gap-5">
               {/* First name + Last name */}
               <div className="grid gap-4 sm:grid-cols-2">
                 <div>
                   <label
                     htmlFor="firstName"
-                    className="block text-sm font-medium text-primary mb-2"
+                    className="block text-sm font-medium text-foreground mb-2"
                   >
                     First name
                   </label>
@@ -150,13 +163,13 @@ export function ContactSection() {
                     id="firstName"
                     name="firstName"
                     required
-                    className="bg-background border-border"
+                    className="bg-secondary/50 border-border"
                   />
                 </div>
                 <div>
                   <label
                     htmlFor="lastName"
-                    className="block text-sm font-medium text-primary mb-2"
+                    className="block text-sm font-medium text-foreground mb-2"
                   >
                     Last name
                   </label>
@@ -164,7 +177,7 @@ export function ContactSection() {
                     id="lastName"
                     name="lastName"
                     required
-                    className="bg-background border-border"
+                    className="bg-secondary/50 border-border"
                   />
                 </div>
               </div>
@@ -174,7 +187,7 @@ export function ContactSection() {
                 <div>
                   <label
                     htmlFor="email"
-                    className="block text-sm font-medium text-primary mb-2"
+                    className="block text-sm font-medium text-foreground mb-2"
                   >
                     Work email
                   </label>
@@ -183,13 +196,13 @@ export function ContactSection() {
                     name="email"
                     type="email"
                     required
-                    className="bg-background border-border"
+                    className="bg-secondary/50 border-border"
                   />
                 </div>
                 <div>
                   <label
                     htmlFor="phone"
-                    className="block text-sm font-medium text-primary mb-2"
+                    className="block text-sm font-medium text-foreground mb-2"
                   >
                     Phone
                   </label>
@@ -197,7 +210,7 @@ export function ContactSection() {
                     id="phone"
                     name="phone"
                     type="tel"
-                    className="bg-background border-border"
+                    className="bg-secondary/50 border-border"
                   />
                 </div>
               </div>
@@ -206,7 +219,7 @@ export function ContactSection() {
               <div>
                 <label
                   htmlFor="company"
-                  className="block text-sm font-medium text-primary mb-2"
+                  className="block text-sm font-medium text-foreground mb-2"
                 >
                   Company name
                 </label>
@@ -214,7 +227,7 @@ export function ContactSection() {
                   id="company"
                   name="company"
                   required
-                  className="bg-background border-border"
+                  className="bg-secondary/50 border-border"
                 />
               </div>
 
@@ -222,11 +235,11 @@ export function ContactSection() {
               <div>
                 <label
                   htmlFor="partnerAffiliation"
-                  className="block text-sm font-medium text-primary mb-2"
+                  className="block text-sm font-medium text-foreground mb-2"
                 >
                   Partner Affiliation
                 </label>
-                <p className="text-xs text-foreground/50 mb-2">
+                <p className="text-xs text-muted-foreground mb-2">
                   Select the company that referred you, if applicable
                 </p>
                 <Select
@@ -234,7 +247,7 @@ export function ContactSection() {
                   onValueChange={setPartnerAffiliation}
                   disabled={loadingPartners}
                 >
-                  <SelectTrigger className="bg-background border-border">
+                  <SelectTrigger className="bg-secondary/50 border-border">
                     <SelectValue placeholder={loadingPartners ? "Loading partners..." : "Select a partner (optional)"} />
                   </SelectTrigger>
                   <SelectContent>
@@ -250,14 +263,14 @@ export function ContactSection() {
                     value={otherPartner}
                     onChange={(e) => setOtherPartner(e.target.value)}
                     placeholder="Please specify the company"
-                    className="mt-3 bg-background border-border"
+                    className="mt-3 bg-secondary/50 border-border"
                   />
                 )}
               </div>
 
               {/* Categories of Interest */}
               <div>
-                <label className="block text-sm font-medium text-primary mb-3">
+                <label className="block text-sm font-medium text-foreground mb-3">
                   Categories of Interest
                 </label>
                 <div className="grid gap-3 sm:grid-cols-2">
@@ -283,10 +296,10 @@ export function ContactSection() {
               <div>
                 <label
                   htmlFor="message"
-                  className="block text-sm font-medium text-primary mb-2"
+                  className="block text-sm font-medium text-foreground mb-2"
                 >
                   Message{" "}
-                  <span className="text-foreground/50 font-normal">
+                  <span className="text-muted-foreground font-normal">
                     (optional)
                   </span>
                 </label>
@@ -294,7 +307,7 @@ export function ContactSection() {
                   id="message"
                   name="message"
                   rows={4}
-                  className="bg-background border-border"
+                  className="bg-secondary/50 border-border"
                   placeholder="Tell us about your purchasing needs..."
                 />
               </div>
@@ -303,12 +316,17 @@ export function ContactSection() {
                 type="submit"
                 size="lg"
                 disabled={isSubmitting}
-                className="w-full bg-primary text-white hover:bg-primary/90"
+                className="w-full rounded-full bg-primary text-primary-foreground hover:bg-[#2D5A1E] font-semibold shadow-none cursor-pointer"
               >
-                {isSubmitting ? "Submitting..." : "Get Started"}
+                {isSubmitting ? "Submitting..." : (
+                  <>
+                    Get Started
+                    <ArrowRight className="ml-2 h-4 w-4" />
+                  </>
+                )}
               </Button>
             </div>
-          </form>
+          </motion.form>
         )}
       </div>
     </section>
