@@ -2,7 +2,7 @@
 
 import Link from "next/link"
 import Image from "next/image"
-import { ArrowLeft, ArrowRight } from "lucide-react"
+import { ArrowLeft, ArrowRight, Check } from "lucide-react"
 import { motion } from "framer-motion"
 import type { Category } from "@/lib/categories-data"
 import { getLogoUrl } from "@/lib/categories-data"
@@ -51,11 +51,8 @@ export function CategoryDetailContent({ category }: { category: Category }) {
       {/* Vendors Section */}
       <section className="py-16 lg:py-24">
         <div className="mx-auto max-w-7xl px-6 lg:px-8">
-          <p className="text-xs font-semibold uppercase tracking-[0.2em] text-primary mb-4">
-            Our partners
-          </p>
           <h2 className="text-2xl font-semibold text-foreground mb-10">
-            Vendors in this category
+            Trusted suppliers
           </h2>
 
           <div className="grid gap-6 grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
@@ -88,20 +85,26 @@ export function CategoryDetailContent({ category }: { category: Category }) {
       {/* Coverage Section */}
       <section className="py-16 lg:py-24 bg-secondary">
         <div className="mx-auto max-w-7xl px-6 lg:px-8">
-          <p className="text-xs font-semibold uppercase tracking-[0.2em] text-primary mb-4">
-            What&apos;s included
-          </p>
-          <h3 className="text-2xl font-semibold text-foreground mb-8">
-            Coverage
+          <h3 className="text-2xl font-semibold text-foreground mb-3">
+            Savings across {category.name.toLowerCase()}
           </h3>
-          <ul className="grid gap-4 sm:grid-cols-2">
+          <p className="text-muted-foreground mb-10">
+            Pre-negotiated contracts covering these areas and more.
+          </p>
+          <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
             {category.bullets.map((bullet, index) => (
-              <li key={index} className="flex items-center gap-3 text-foreground/80">
-                <span className="h-2 w-2 rounded-full bg-primary/40 shrink-0" />
-                {bullet}
-              </li>
+              <div key={index} className="flex items-start gap-3">
+                <div className="h-10 w-10 rounded-xl bg-primary flex items-center justify-center shrink-0">
+                  <Check className="h-5 w-5 text-primary-foreground" strokeWidth={2.5} />
+                </div>
+                <div className="border-l-2 border-primary/20 pl-3 py-1">
+                  <span className="text-sm font-medium text-foreground">
+                    {bullet}
+                  </span>
+                </div>
+              </div>
             ))}
-          </ul>
+          </div>
         </div>
       </section>
 
