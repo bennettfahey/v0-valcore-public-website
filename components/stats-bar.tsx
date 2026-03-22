@@ -11,7 +11,7 @@ const stats = [
 
 export function StatsBar() {
   return (
-    <section className="bg-secondary border-y border-border">
+    <section className="bg-[#1A1A1A]">
       <div className="mx-auto max-w-7xl px-6 lg:px-8">
         <div className="flex flex-col gap-10 py-16 lg:py-20 lg:flex-row lg:items-center lg:justify-between">
           {/* Left Content */}
@@ -22,12 +22,12 @@ export function StatsBar() {
             transition={{ duration: 0.5 }}
             className="lg:max-w-md"
           >
-            <h2 className="text-3xl font-semibold text-foreground sm:text-4xl text-balance">
+            <h2 className="text-3xl font-semibold text-white sm:text-4xl text-balance">
               Increase your purchasing power.
             </h2>
             <a
               href="#contact"
-              className="mt-6 inline-flex items-center gap-2 rounded-full bg-primary px-6 py-3 text-sm font-semibold text-primary-foreground transition-colors duration-200 hover:bg-[#2D5A1E] cursor-pointer"
+              className="mt-6 inline-flex items-center gap-2 rounded-full bg-white px-6 py-3 text-sm font-semibold text-[#1A1A1A] transition-colors duration-200 hover:bg-white/90 cursor-pointer"
             >
               Get Started
               <ArrowRight className="h-3.5 w-3.5" />
@@ -49,14 +49,14 @@ export function StatsBar() {
                 }}
                 className={`flex flex-col sm:px-8 lg:px-12 ${
                   index !== stats.length - 1
-                    ? "sm:border-r sm:border-border"
+                    ? "sm:border-r sm:border-white/20"
                     : ""
                 }`}
               >
-                <span className="text-4xl lg:text-5xl font-semibold text-foreground">
+                <span className="text-4xl lg:text-5xl font-semibold text-white">
                   {stat.value}
                 </span>
-                <span className="mt-2 text-sm text-muted-foreground">
+                <span className="mt-2 text-sm text-white/60">
                   {stat.label}
                 </span>
               </motion.div>
