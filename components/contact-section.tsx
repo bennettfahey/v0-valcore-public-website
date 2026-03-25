@@ -19,7 +19,9 @@ import { motion } from "framer-motion"
 export function ContactSection() {
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [submitted, setSubmitted] = useState(false)
+  const [submittedEmail, setSubmittedEmail] = useState("")
   const [error, setError] = useState<string | null>(null)
+  const [loginUrl, setLoginUrl] = useState<string | null>(null)
   const [partnerAffiliation, setPartnerAffiliation] = useState<string>("")
   const [otherPartner, setOtherPartner] = useState<string>("")
   const [selectedCategories, setSelectedCategories] = useState<string[]>([])
@@ -83,18 +85,21 @@ export function ContactSection() {
       const result = await response.json()
 
       if (!response.ok) {
-        throw new Error(result.error || "Failed to submit form")
-      }
-
-      if (result.inviteUrl) {
-        window.location.href = result.inviteUrl
+        if (result.loginUrl) {
+          setError(result.error || "An account with this email already exists.")
+          setLoginUrl(result.loginUrl)
+        } else {
+          throw new Error(result.error || "Failed to submit form")
+        }
         return
       }
 
+      setSubmittedEmail(data.email)
       setSubmitted(true)
     } catch (err) {
       console.error("Form submission error:", err)
       setError("Something went wrong. Please try again.")
+      setLoginUrl(null)
     } finally {
       setIsSubmitting(false)
     }
@@ -129,11 +134,20 @@ export function ContactSection() {
               <Check className="h-8 w-8 text-primary" />
             </div>
             <h3 className="text-xl font-semibold text-foreground mb-2">
-              Thank you!
+              Check your email!
             </h3>
             <p className="text-muted-foreground">
-              Check your email for next steps.
+              We sent a welcome email to{" "}
+              <span className="font-medium text-foreground">{submittedEmail}</span>.
+              Click the link inside to begin saving with us.
             </p>
+            <a
+              href="/"
+              className="mt-6 inline-flex items-center gap-2 text-sm font-medium text-primary hover:text-[#2D5A1E] transition-colors"
+            >
+              Back to home
+              <ArrowRight className="h-3.5 w-3.5" />
+            </a>
           </motion.div>
         ) : (
           <motion.form
@@ -147,6 +161,14 @@ export function ContactSection() {
             {error && (
               <div className="mb-6 p-4 rounded-xl bg-red-50 border border-red-200 text-red-700 text-sm">
                 {error}
+                {loginUrl && (
+                  <a
+                    href={loginUrl}
+                    className="ml-1 font-medium underline hover:text-red-900 transition-colors"
+                  >
+                    Log in here
+                  </a>
+                )}
               </div>
             )}
             <div className="grid gap-5">
